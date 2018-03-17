@@ -5,34 +5,40 @@
 {
     <fieldset>
         <h5>Rangos de Fechas</h5>
-        <div class="form-group">
-            <label>Fecha de Inicio</label> <input type="date" id="StartDate" name="StartDate" value="@ViewBag.StartDate" />
+        <div class="input-group">
+            <label>Fecha de Inicio</label> <input type="date" id="StartDate" name="StartDate" class="form-control" value="@ViewBag.StartDate" />
         </div>
-        <div class="form-group">
-            <label>Fecha de Fin</label> <input type="date" id="EndDate" name="EndDate" value="@ViewBag.EndDate" />
+        <div class="input-group">
+            <label>Fecha de Fin</label> <input type="date" id="EndDate" name="EndDate" class="form-control" value="@ViewBag.EndDate" />
         </div>
-        <div class="form-group">
+        <div class="input-group">
             <label>Ordenamiento</label>
-            <input type="radio" id="Orden" name="Orden" value="Ascendente" @if (ViewBag.Orden == "Ascendente") { @Html.Raw("checked='checked'"); } /> Ascendente
-            <input type="radio" id="Orden" name="Orden" value="Descendente" class="input-lg" @if (ViewBag.Orden == "Descendente") { @Html.Raw("checked='checked'"); } /> Descendente
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="radio" id="Orden" name="Orden" value="Ascendente" @if (ViewBag.Orden == "Ascendente") { @Html.Raw("checked='checked'") ; } /> Ascendente
+                    <input type="radio" id="Orden" name="Orden" value="Descendente" @if (ViewBag.Orden == "Descendente") { @Html.Raw("checked='checked'") ; } /> Descendente
+                </div>
+            </div>
         </div>
 
         <br />
 
-        <input type="submit" value="Consultar dias" />
+        <input type="submit" value="Consultar dias" class="btn btn-success" />
 
     </fieldset>
 }
 <hr />
 @if (ViewBag.Message != null)
 {
-    <h1 style="color:red">@ViewBag.Message</h1>
+    <div class="alert alert-primary">
+        @ViewBag.Message
+    </div>
 }
 Se encontraron @Model.Count registros. Click para navegar al elemento.
 <span>
     @for (int i = 1; i <= Model.Count; i++)
     {
-        <a href="#@i" class="btn-xs">@i</a> @:|
+        <a href="#@i" class="btn-sm btn-primary">@i</a> @:|
     }
 </span>
 <hr />
@@ -57,7 +63,7 @@ Se encontraron @Model.Count registros. Click para navegar al elemento.
                             @day.Copyright
                         }
                     </h2>
-                    <small>@day.Date | <a href="#top">Go to Top ^</a></small>
+                    <small>@DateTime.Parse(day.Date).ToString("dd-MM-yyyy") | <a href="#top" class="btn-xs btn-primary">Ir arriba ^</a></small> <br/>
                     <img src="@day.hdurl" alt="@day.Explanation" title="@day.Copyright" style="width:100%" />
                     <p> @day.Explanation</p>
                 </div>

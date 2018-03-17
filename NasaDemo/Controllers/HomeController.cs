@@ -40,7 +40,7 @@ namespace NasaDemo.Controllers
             {
                 if (Orden == string.Empty)
                 {
-                    Orden = "Ascendente";
+                    Orden = "Descendente";
                 }
 
                 ViewBag.Orden = Orden;
