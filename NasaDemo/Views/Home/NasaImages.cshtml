@@ -1,4 +1,4 @@
-﻿@model List<NasaAPOD>
+﻿@model List<NasaAPODViewModel>
 
 <h1 id="top">Informacion Diaria</h1>
 @using (Html.BeginForm("NasaImages", "Home", null, FormMethod.Get, false, null))
@@ -14,7 +14,7 @@
         <div class="form-group">
             <label>Ordenamiento</label>
             <input type="radio" id="Orden" name="Orden" value="Ascendente" @if (ViewBag.Orden == "Ascendente") { @Html.Raw("checked='checked'"); } /> Ascendente
-            <input type="radio" id="Orden" name="Orden" value="Descendente" @if (ViewBag.Orden == "Descendente") { @Html.Raw("checked='checked'"); } /> Descendente
+            <input type="radio" id="Orden" name="Orden" value="Descendente" class="input-lg" @if (ViewBag.Orden == "Descendente") { @Html.Raw("checked='checked'"); } /> Descendente
         </div>
 
         <br />
@@ -32,7 +32,7 @@ Se encontraron @Model.Count registros. Click para navegar al elemento.
 <span>
     @for (int i = 1; i <= Model.Count; i++)
     {
-        <a href="#@i">@i</a> @:|
+        <a href="#@i" class="btn-xs">@i</a> @:|
     }
 </span>
 <hr />
