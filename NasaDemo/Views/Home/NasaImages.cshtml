@@ -1,0 +1,67 @@
+﻿@model List<NasaAPOD>
+
+<h1 id="top">Informacion Diaria</h1>
+@using (Html.BeginForm("NasaImages", "Home", null, FormMethod.Get, false, null))
+{
+    <fieldset>
+        <h5>Rangos de Fechas</h5>
+        <div class="form-group">
+            <label>Fecha de Inicio</label> <input type="date" id="StartDate" name="StartDate" value="@ViewBag.StartDate" />
+        </div>
+        <div class="form-group">
+            <label>Fecha de Fin</label> <input type="date" id="EndDate" name="EndDate" value="@ViewBag.EndDate" />
+        </div>
+        <div class="form-group">
+            <label>Ordenamiento</label>
+            <input type="radio" id="Orden" name="Orden" value="Ascendente" @if (ViewBag.Orden == "Ascendente") { @Html.Raw("checked='checked'"); } /> Ascendente
+            <input type="radio" id="Orden" name="Orden" value="Descendente" @if (ViewBag.Orden == "Descendente") { @Html.Raw("checked='checked'"); } /> Descendente
+        </div>
+
+        <br />
+
+        <input type="submit" value="Consultar dias" />
+
+    </fieldset>
+}
+<hr />
+@if (ViewBag.Message != null)
+{
+    <h1 style="color:red">@ViewBag.Message</h1>
+}
+Se encontraron @Model.Count registros. Click para navegar al elemento.
+<span>
+    @for (int i = 1; i <= Model.Count; i++)
+    {
+        <a href="#@i">@i</a> @:|
+    }
+</span>
+<hr />
+<div class="container">
+    @{ int iterator = 0; }
+    @foreach (var day in Model)
+    {
+        iterator++;
+        <div class="container" id="@iterator">
+            <div class="col-md-6">
+                <div class="row">
+                    <br />
+                    <br />
+                    <br />
+                    <h2>
+                        @if (day.Copyright == null)
+                        {
+                            @:No Autor
+                        }
+                        else
+                        {
+                            @day.Copyright
+                        }
+                    </h2>
+                    <small>@day.Date | <a href="#top">Go to Top ^</a></small>
+                    <img src="@day.hdurl" alt="@day.Explanation" title="@day.Copyright" style="width:100%" />
+                    <p> @day.Explanation</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
